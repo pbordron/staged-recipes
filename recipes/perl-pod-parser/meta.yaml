@@ -1,0 +1,40 @@
+{% set name = "perl-pod-parser" %}
+{% set version = "1.67" %}
+{% set sha256 = "5deccbf55d750ce65588cd211c1a03fa1ef3aaa15d1ac2b8d85383a42c1427ea" %}
+
+{% set pkg_name = "Pod::Parser" %}
+{% set pkg_author = "MAREKR" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://cpan.metacpan.org/authors/id/{{ pkg_author[0] }}/{{ pkg_author[0:2] }}/{{ pkg_author }}/{{ pkg_name | replace("::", "-") }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  noarch: generic
+  number: 0
+
+requirements:
+  build:
+    - make
+  host:
+    - perl {{ perl }}
+  run:
+    - perl {{ perl }}
+
+test:
+  imports:
+    - {{ pkg_name }}
+
+about:
+  home: https://metacpan.org/pod/{{ pkg_name }}
+  license: Artistic-1.0-Perl
+  license_file: README
+  summary: 'base class for creating POD filters and translators'
+
+extra:
+  recipe-maintainers:
+    - pbordron
