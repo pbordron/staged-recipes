@@ -1,0 +1,45 @@
+{% set pkg_name = "Getopt::Euclid" %}
+{% set author = "BIGPRESH" %}
+{% set version = "0.4.6" %}
+{% set sha256 = "65713094978ae7b7b8e8842b67d877fbe02c57fba6606757f5a569736ec385e4" %}
+
+{% set name %}perl-{{ pkg_name | lower | replace("::", "-") }}{% endset %}
+
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://cpan.metacpan.org/authors/id/{{ author[0] }}/{{ author[0:2] }}/{{ author }}/{{ pkg_name | replace("::", "-") }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+  patches:
+    - fix_version.patch
+
+build:
+  skip: True # [win]
+  number: 0
+
+requirements:
+  build:
+    - make
+  host:
+    - perl {{ perl }}
+#    - perl-test-pod
+#    - perl-test-pod-coverage
+  run:
+    - perl {{ perl }}
+
+test:
+  imports:
+    - {{ pkg_name }}
+
+about:
+  home: https://metacpan.org/pod/{{ pkg_name }}
+  license: Artistic-1.0-Perl OR GPL-1.0-or-later
+  license_file: LICENSE
+  summary: 'Executable Uniform Command-Line Interface Descriptions'
+
+extra:
+  recipe-maintainers:
+    - pbordron
