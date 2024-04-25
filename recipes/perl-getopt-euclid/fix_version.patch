@@ -1,0 +1,10 @@
+--- lib/Getopt/Euclid_.pm	2023-06-28 11:22:43.000000000 +0200
++++ lib/Getopt/Euclid.pm	2024-04-09 11:47:41.194694985 +0200
+@@ -1,6 +1,6 @@
+ package Getopt::Euclid;
+ 
+-use version; our $VERSION = version->declare('0.4.5');
++use version; our $VERSION = version->declare('0.4.6');
+ 
+ use warnings;
+ use strict;
