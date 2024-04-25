@@ -1,0 +1,41 @@
+{% set name = "perl-test-number-delta" %}
+{% set version = "1.06" %}
+{% set sha256 = "535430919e6fdf6ce55ff76e9892afccba3b7d4160db45f3ac43b0f92ffcd049" %}
+
+{% set pkg_name = "Test::Number::Delta" %}
+{% set pkg_author = "DAGOLDEN" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://cpan.metacpan.org/authors/id/{{ pkg_author[0] }}/{{ pkg_author[0:2] }}/{{ pkg_author }}/{{ pkg_name | replace("::", "-") }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  skip: True # [win]
+  number: 0
+
+requirements:
+  build:
+    - make
+    - {{ compiler('c') }}
+  host:
+    - perl {{ perl }}
+  run:
+    - perl {{ perl }}
+  
+test:
+  imports:
+    - {{ pkg_name }}
+
+about:
+  home: https://metacpan.org/pod/{{ pkg_name }}
+  license: Apache-2.0
+  license_file: LICENSE
+  summary: 'Compare the difference between numbers against a given tolerance'
+
+extra:
+  recipe-maintainers:
+    - pbordron
