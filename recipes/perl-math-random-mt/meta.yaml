@@ -1,0 +1,44 @@
+{% set pkg_name = "Math::Random::MT" %}
+{% set author = "FANGLY" %}
+{% set version = "1.17" %}
+{% set sha256 = "069a1d98a619cba1f1ab91fbd6edceb642e84e7d162c4f0e2442139037b5b0da" %}
+
+{% set name %}perl-{{ pkg_name | lower | replace("::", "-") }}{% endset %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://cpan.metacpan.org/authors/id/{{ author[0] }}/{{ author[0:2] }}/{{ author }}/{{ pkg_name | replace("::", "-") }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  skip: True # [win]
+  number: 0
+
+requirements:
+  build:
+    - make
+    - {{ compiler('c') }}
+  host:
+    - perl {{ perl }}
+    - libxcrypt
+    - perl-test-number-delta
+  run:
+    - perl {{ perl }}
+    - perl-test-number-delta
+
+test:
+  imports:
+    - {{ pkg_name }}
+
+about:
+  home: https://metacpan.org/pod/{{ pkg_name }}
+  license: BSD 3-Clause
+  license_file: LICENSE
+  summary: 'The Mersenne Twister PRNG'
+
+extra:
+  recipe-maintainers:
+    - pbordron
