@@ -1,0 +1,52 @@
+{% set name = "grinder" %}
+{% set version="0.5.4" %}
+{% set hash="c34edcae59d1a461d354bae5e3798e98b42f6a31768585e598fe6bfa305c8fe4" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+build:
+  number: 0
+  skip: True # [not linux]
+  script:
+    - perl Makefile.PL
+    - make
+    - make test
+    - make install VERBINST=1
+
+source:
+  url: https://sourceforge.net/projects/biogrinder/files/biogrinder/Grinder-{{ version }}/Grinder-{{ version }}.tar.gz
+  sha256: {{ hash }}
+
+requirements:
+  build:
+    - make
+    - perl {{ perl }}
+    - perl-bioperl >=1.6.901
+    - perl-getopt-euclid >=0.4.4
+    - perl-math-random-mt >=1.16
+    - perl-scalar-list-utils
+    - perl-version
+  run:
+    - perl {{ perl }}
+    - perl-bioperl >=1.6.901
+    - perl-getopt-euclid >=0.4.4
+    - perl-math-random-mt >=1.16
+    - perl-scalar-list-utils
+    - perl-version
+
+test:
+  commands:
+    - grinder --version
+    - grinder --help
+
+about:
+  home: https://sourceforge.net/projects/biogrinder/
+  license: GPL-3.0-only
+  license_file: LICENSE
+  summary: A  a versatile open-source bioinformatic tool to create simulated omic shotgun and amplicon sequence libraries for all main sequencing platforms.
+
+extra:
+  recipe-maintainers:
+    - pbordron
